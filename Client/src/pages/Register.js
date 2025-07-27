@@ -29,16 +29,21 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <h2>הרשמה</h2>
       <input name="userName" placeholder="שם משתמש" value={form.userName} onChange={handleChange} />
+      <br />
       <input name="fullName" placeholder="שם מלא" value={form.fullName} onChange={handleChange} />
+      <br />
       <input name="phone" placeholder="טלפון" value={form.phone} onChange={handleChange} />
+      <br />
       <input name="email" placeholder="אימייל" value={form.email} onChange={handleChange} />
+      <br />
       <input name="password" type="password" placeholder="סיסמה" value={form.password} onChange={handleChange} />
+      <br />
       <button type="submit">הרשם</button>
-      {error && <div style={{color:'red'}}>{error}</div>}
-      {success && <div style={{color:'green'}}>נרשמת בהצלחה!</div>}
+      {error && <div style={{ color: 'red' }}>{error}</div>}
+      {success && <div style={{ color: 'green' }}>נרשמת בהצלחה!</div>}
     </form>
   );
 };

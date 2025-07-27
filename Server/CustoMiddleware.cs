@@ -17,5 +17,6 @@
             await _next(context);
             _logger.LogInformation("CustoMiddleware: Request ended at {Time}", DateTime.UtcNow);
         }
+        
     }
 }

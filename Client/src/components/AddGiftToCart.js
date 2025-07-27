@@ -11,7 +11,7 @@ const AddGiftToCart = () => {
   };
 
   return (
-    <div>
+    <div style={{alignItems:'center', display: 'flex', flexDirection: 'column', gap: '10px'}}>
       <input value={giftId} onChange={e => setGiftId(e.target.value)} placeholder="מזהה מתנה" />
       <input type="number" value={quantity} onChange={e => setQuantity(Number(e.target.value))} min="1" />
       <button onClick={handleAdd}>הוסף לעגלה</button>

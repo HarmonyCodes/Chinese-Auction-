@@ -10,7 +10,7 @@ namespace Project.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = "User, Admin")]
     public class CartController : ControllerBase{
 
         [HttpPost("finish")]
@@ -54,46 +54,24 @@ namespace Project.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<GiftCart>> GetCart()
-        {
-            try
-            {
-                var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                if (string.IsNullOrEmpty(userIdStr))
-                {
-                    _logger.LogError("User identifier claim is missing");
-                    return Unauthorized("User identifier is missing");
-                }
-                int userId = int.Parse(userIdStr);
-                _logger.LogInformation($"Getting cart for user with Id: {userId}");
-                var cart = await _cartService.GetCartByUserIdAsync(userId);
-                // תמיד נחזיר מערך (ריק אם אין עגלה)
-                return Ok(cart?.GiftCartItems ?? new List<GiftCartItem>());
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Unexpected error while getting cart");
-                return StatusCode(500, "Internal server error");
-            }
-        }
+        [HttpGet]public async Task<ActionResult> GetCart()
+{
+    var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    if (string.IsNullOrEmpty(userIdStr))
+        return Unauthorized("User identifier is missing");
 
-        // Endpoint להחזרת כל העגלות (למנהל/בדיקות)
-        [HttpGet("all")]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<IEnumerable<GiftCart>>> GetAllCarts()
-        {
-            try
-            {
-                var carts = await _cartService.GetAllCartsAsync();
-                return Ok(carts);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Unexpected error while getting all carts");
-                return StatusCode(500, "Internal server error");
-            }
-        }
+    int userId = int.Parse(userIdStr);
+
+    var role = User.FindFirstValue(ClaimTypes.Role);
+    if (role == "Admin")
+    {
+        var carts = await _cartService.GetAllCartsAsync();
+        return Ok(carts);
+    }
+
+    var cart = await _cartService.GetCartByUserIdAsync(userId);
+    return Ok(cart?.GiftCartItems ?? new List<GiftCartItem>());
+}
 
         /// <summary>
         /// מוסיף מתנה לעגלה של המשתמש ומחזיר את העגלה העדכנית
@@ -185,21 +163,7 @@ namespace Project.Controllers
                 return StatusCode(500, "שגיאה פנימית בשרת");
             }
         }
-        /// <summary>
-        /// דוגמת שימוש ב-API (Swagger/Docs)
-        /// </summary>
-        /// <remarks>
-        /// דוגמה להוספת מתנה לעגלה:
-        /// POST /api/cart/add
-        /// {
-        ///   "giftId": 1,
-        ///   "quantity": 2
-        /// }
-        /// תשובה:
-        /// [
-        ///   { "id": 1, "giftId": 1, "quantity": 2, "price": 50, "giftName": "בובה" }, ...
-        /// ]
-        /// </remarks>
+
     }
 }
 

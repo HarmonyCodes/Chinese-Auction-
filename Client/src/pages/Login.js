@@ -36,7 +36,7 @@ const Login = () => {
 
   return (
     <div className="flex justify-content-center align-items-center" style={{ minHeight: "80vh" }}>
-      <Card title="התחברות" style={{ width: "350px" }}>
+      <Card title="התחברות" style={{ width: "350px" , top: "20px" , marginLeft: "650px" }}>
         <form onSubmit={handleSubmit} className="p-fluid">
           <label htmlFor="username">שם משתמש</label>
           <InputText id="username" name="username" value={form.username} onChange={handleChange} autoFocus />

@@ -130,4 +130,14 @@ app.UseMiddleware<Server.CustoMiddleware>();
 
 app.MapControllers();
 
+// using (var scope = app.Services.CreateScope())
+// {
+//     var services = scope.ServiceProvider;
+
+//     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+//     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+//     await SeedAdmin.SeedAdminAsync(userManager, roleManager);
+// }
+
 app.Run();

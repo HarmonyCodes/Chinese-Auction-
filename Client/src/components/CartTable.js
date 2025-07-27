@@ -8,7 +8,6 @@ const CartTable = ({ cart, onRemove }) => (
           <th style={{ padding: 12, border: 'none', color: '#fff', fontWeight: 700 }}>שם מתנה</th>
           <th style={{ padding: 12, border: 'none', color: '#fff', fontWeight: 700 }}>כמות</th>
           <th style={{ padding: 12, border: 'none', color: '#fff', fontWeight: 700 }}>מחיר</th>
-          <th style={{ padding: 12, border: 'none', color: '#fff', fontWeight: 700 }}>סטטוס</th>
           <th style={{ padding: 12, border: 'none', color: '#fff', fontWeight: 700 }}>הסר</th>
         </tr>
       </thead>
@@ -23,13 +22,6 @@ const CartTable = ({ cart, onRemove }) => (
               <td style={{ padding: 12, border: 'none', fontWeight: 500 }}>{item.gift?.name || item.giftName || ''}</td>
               <td style={{ padding: 12, border: 'none' }}>{item.quantity}</td>
               <td style={{ padding: 12, border: 'none' }}>{item.gift?.price || item.price || ''}</td>
-              <td style={{ padding: 12, border: 'none' }}>
-                {item.isDraft === true || item.IsDraft === true ? (
-                  <span style={{ color: '#1976d2', fontWeight: 700, letterSpacing: 1 }}>טיוטה</span>
-                ) : (
-                  <span style={{ color: '#388e3c', fontWeight: 700, letterSpacing: 1 }}>סופי</span>
-                )}
-              </td>
               <td style={{ padding: 12, border: 'none' }}>
                 <button
                   style={{ background: 'linear-gradient(90deg,#d32f2f 0%,#ff6b6b 100%)', color: '#fff', border: 'none', borderRadius: '50%', width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', boxShadow: '0 2px 6px #d32f2f33', fontSize: 18, transition: 'background 0.2s' }}

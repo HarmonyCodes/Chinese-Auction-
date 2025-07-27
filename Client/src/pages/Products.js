@@ -32,7 +32,6 @@ const Products = () => {
           <Column field="name" header="שם מוצר" />
           <Column field="description" header="תיאור" />
           <Column field="price" header="מחיר" body={row => row.price + " ₪"} />
-          {/* ניתן להוסיף עמודות נוספות */}
         </DataTable>
       </Card>
     </div>
