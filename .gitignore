@@ -1,0 +1,20 @@
+# Server
+bin/
+obj/
+.vs/
+*.user
+*.suo
+
+# Client
+Client/node_modules/
+
+# כללי
+.vscode/
+*.log
+node_modules
+
+# קבצי קונפיג
+appsettings.*.json
+!appsettings.json
+
+
